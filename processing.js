@@ -3,7 +3,8 @@ width = window.innerHeight, height = window.innerHeight,
 mouseX, mouseY,
 fontSize, textalign, fontFamily,
 CENTER = "center", LEFT = "left", RIGHT = "right";
-var draw = function() {}, mouseDragged = function() {}, mouseClicked = function() {}, mousePressed = function() {}, mouseReleased = function() {}, 
+var draw = function() {}, mouseDragged = function() {}, mouseClicked = function() {}, mousePressed = function() {}, mouseReleased = function() {}, mouseMoved = function() {},
+mouseIsPressed,
 color = function(r, g, b) {
     return "rgb(" + r + ", " + g + ", " + b + ")"
 },
@@ -89,5 +90,19 @@ window.setInterval(function() {
     document.body.addEventListener("mousemove", function(event) {
         mouseX = event.pageX;
         mouseY = event.pageY;
+        mouseMoved();
     });
 }, frameCount);
+document.body.addEventListener("mousedown", function(event) {
+    mouseX = event.pageX;
+    mouseY = event.pageY;
+    mousePressed();
+    mouseClicked();
+    mouseIsPressed = true;
+});
+document.body.addEventListener("mouseup", function(event) {
+    mouseX = event.pageX;
+    mouseY = event.pageY;
+    mouseReleased();
+    mouseIsPressed = false;
+});
